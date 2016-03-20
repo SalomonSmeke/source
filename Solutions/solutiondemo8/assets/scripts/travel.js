@@ -5,15 +5,19 @@ function travelNotes() {
   //manage input field and new note output
   function createNote() {
     //object for wrapper html for note
-    var $note = $("<p>");
+    var $note = $('<p class="note">');
     //define input field
     var $note_text = $(".note-input input");
     //conditional check for input field
     if ($note_text.val() !== "") {
     //set content for note
-    $note.html($note_text.val());
+    $note.html($note_text.val()+'<button>remove</button>');
     //hide new note to setup fadeIn...
     $note.hide();
+    //add removal function all ugly and stuff. but it works great.
+    $note.children('button').on("click", function(e){
+      this.parentNode.parentNode.removeChild(this.parentNode);
+    });
     //append note text to note-output
     $(".note-output").append($note);
     //fadeIn hidden new note
@@ -21,7 +25,7 @@ function travelNotes() {
     $note_text.val("");
     }
   }
-  
+
   //manage input field and new note output
   function clearNotes() {
     //define input field
@@ -44,15 +48,7 @@ function travelNotes() {
     createNote();
   });
 
-  //handle user event for `clear` button click
-  $(".note-clear button").on("click", function(e) {
-    clearNotes();
-  });
-  
-  //handle user event for `add` button click
-  $(".note-remove button").on("click", function(e) {
-    createNote();
-  });
+  //Removed unused button
 
   //handle user event for keyboard press
   $(".note-input input").on("keypress", function(e){
